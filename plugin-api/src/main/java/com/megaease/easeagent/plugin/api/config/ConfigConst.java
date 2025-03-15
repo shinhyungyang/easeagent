@@ -161,6 +161,9 @@ public interface ConfigConst {
         String REST_TEMPLATE = "resTemplate";
         String HTTPURLCONNECTION = "httpURLConnection";
 
+        // -------------  benchmark  ----------------
+        String MOOBENCH = "moobench";
+
         String FORWARDED = "forwarded";
     }
 
