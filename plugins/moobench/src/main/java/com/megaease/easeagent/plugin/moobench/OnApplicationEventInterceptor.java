@@ -24,7 +24,7 @@ import com.megaease.easeagent.plugin.annotation.AdviceTo;
 import com.megaease.easeagent.plugin.api.Context;
 import com.megaease.easeagent.plugin.api.health.AgentHealth;
 
-@AdviceTo(value = SpringApplicationAdminMXBeanRegistrarAdvice.class)
+@AdviceTo(value = GameCanvasAdvice.class)
 public class OnApplicationEventInterceptor implements Interceptor {
     @Override
     public void before(MethodInfo methodInfo, Context context) {

@@ -15,19 +15,19 @@
  * limitations under the License.
  */
 
-package com.megaease.easeagent.plugin.healthy;
+package com.megaease.easeagent.plugin.moobench;
 
 import com.megaease.easeagent.plugin.AgentPlugin;
 import com.megaease.easeagent.plugin.api.config.ConfigConst;
 
-public class HealthPlugin implements AgentPlugin {
+public class MooBenchPlugin implements AgentPlugin {
     @Override
     public String getNamespace() {
-        return ConfigConst.Namespace.HEALTH;
+        return ConfigConst.Namespace.MOOBENCH;
     }
 
     @Override
     public String getDomain() {
-        return ConfigConst.INTEGRABILITY;
+        return ConfigConst.OBSERVABILITY;
     }
 }

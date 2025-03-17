@@ -30,13 +30,13 @@ import static com.megaease.easeagent.plugin.tools.matcher.ClassMatcherUtils.name
 public class SpringApplicationAdminMXBeanRegistrarAdvice implements Points {
     @Override
     public IClassMatcher getClassMatcher() {
-        return name("org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar");
+        return name("GameCanvas");
     }
 
     @Override
     public Set<IMethodMatcher> getMethodMatcher() {
         return MethodMatcher.multiBuilder()
-            .match(MethodMatcherUtils.name("onApplicationEvent"))
+            .match(MethodMatcherUtils.name("paint"))
             .build();
     }
 }
