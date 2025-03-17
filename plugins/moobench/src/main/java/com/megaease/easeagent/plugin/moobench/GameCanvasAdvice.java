@@ -27,7 +27,7 @@ import java.util.Set;
 
 import static com.megaease.easeagent.plugin.tools.matcher.ClassMatcherUtils.name;
 
-public class SpringApplicationAdminMXBeanRegistrarAdvice implements Points {
+public class GameCanvasAdvice implements Points {
     @Override
     public IClassMatcher getClassMatcher() {
         return name("GameCanvas");
