@@ -19,24 +19,37 @@ package com.megaease.easeagent.plugin.moobench;
 
 import com.megaease.easeagent.plugin.Points;
 import com.megaease.easeagent.plugin.matcher.IClassMatcher;
+import com.megaease.easeagent.plugin.matcher.ClassMatcher;
 import com.megaease.easeagent.plugin.matcher.IMethodMatcher;
 import com.megaease.easeagent.plugin.matcher.MethodMatcher;
 import com.megaease.easeagent.plugin.tools.matcher.MethodMatcherUtils;
+import com.megaease.easeagent.plugin.bridge.EaseAgent;
+import com.megaease.easeagent.plugin.api.logging.Logger;
 
 import java.util.Set;
 
 import static com.megaease.easeagent.plugin.tools.matcher.ClassMatcherUtils.name;
 
 public class GameCanvasAdvice implements Points {
+    private static final Logger log = EaseAgent.getLogger(GameCanvasAdvice.class);
+
     @Override
     public IClassMatcher getClassMatcher() {
-        return name("GameCanvas");
+        log.info("getClassMatcher() started");
+        return ClassMatcher.builder()
+            .hasClassName("awt.EventObserver")
+            .build();
     }
 
     @Override
     public Set<IMethodMatcher> getMethodMatcher() {
-        return MethodMatcher.multiBuilder()
-            .match(MethodMatcherUtils.name("paint"))
-            .build();
+        log.info("getMethodMatcher() started");
+        return MethodMatcher.builder()
+            .isPublic()
+            .named("observe")
+            .arg(0, "java.awt.AWTEvent")
+            .returnType("void")
+            .build()
+            .toSet();
     }
 }
