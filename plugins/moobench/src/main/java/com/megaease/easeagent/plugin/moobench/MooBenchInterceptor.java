@@ -24,49 +24,51 @@ import com.megaease.easeagent.plugin.enums.Order;
 import com.megaease.easeagent.plugin.interceptor.Interceptor;
 import com.megaease.easeagent.plugin.interceptor.MethodInfo;
 import com.megaease.easeagent.plugin.bridge.EaseAgent;
-import com.megaease.easeagent.plugin.api.logging.Logger;
+//import com.megaease.easeagent.plugin.api.logging.Logger;
 
 @AdviceTo(value = GameCanvasAdvice.class)
 public class MooBenchInterceptor implements Interceptor {
     private static final Object SPAN_KEY = new Object();
-    private static final Logger log = EaseAgent.getLogger(MooBenchInterceptor.class);
+//  private static final Logger log = EaseAgent.getLogger(MooBenchInterceptor.class);
 
     @Override
     public void before(MethodInfo methodInfo, Context context) {
-        log.info("started ---");
+//      log.info("started ---");
         Object invoker = methodInfo.getInvoker();
         String spanName = invoker.getClass().getSimpleName() + "." + methodInfo.getMethod();
-        Span span = context.nextSpan().remoteServiceName("mocha-doom").name(spanName).start();
-        log.info("   traceId: " + span.traceIdString());
-        log.info("    spanId: " + span.spanIdString());
-        log.info("  parentId: " + span.parentIdString());
+        Span span = context.nextSpan()
+            .tag("service.name", "moobench")
+            .name(spanName).start();
+//      log.info("   traceId: " + span.traceIdString());
+//      log.info("    spanId: " + span.spanIdString());
+//      log.info("  parentId: " + span.parentIdString());
         context.put(SPAN_KEY, span);
-        log.info("ended ---");
+//      log.info("ended ---");
     }
 
     @Override
     public void after(MethodInfo methodInfo, Context context) {
-        log.info("started ---");
+//      log.info("started ---");
         try {
             Span span = context.get(SPAN_KEY);
             if (span == null) {
-                log.warn("  span is null");
-                log.info("ended ---");
+//              log.warn("  span is null");
+//              log.info("ended ---");
                 return;
             }
             Throwable throwable = methodInfo.getThrowable();
             if (throwable != null) {
-                log.error("  span has error");
+//              log.error("  span has error");
                 span.error(throwable);
             }
-            log.info("   traceId: " + span.traceIdString());
-            log.info("    spanId: " + span.spanIdString());
-            log.info("  parentId: " + span.parentIdString());
+//          log.info("   traceId: " + span.traceIdString());
+//          log.info("    spanId: " + span.spanIdString());
+//          log.info("  parentId: " + span.parentIdString());
             span.finish();
             context.remove(SPAN_KEY);
         } catch (Exception ignored) {
         }
-        log.info("ended ---");
+//      log.info("ended ---");
     }
 
     @Override
