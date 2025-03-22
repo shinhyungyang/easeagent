@@ -44,12 +44,19 @@ public class GameCanvasAdvice implements Points {
     @Override
     public Set<IMethodMatcher> getMethodMatcher() {
         log.info("getMethodMatcher() started");
-        return MethodMatcher.builder()
-            .isPublic()
-            .named("observe")
-            .arg(0, "java.awt.AWTEvent")
-            .returnType("void")
-            .build()
-            .toSet();
+        return MethodMatcher.multiBuilder()
+            .match(MethodMatcher.builder().named("observe")
+                .arg(0, "java.awt.AWTEvent")
+                .returnType("void")
+                .build())
+            .match(MethodMatcher.builder().named("sendKeyUps")
+                .arg(0, "java.awt.AWTEvent")
+                .returnType("void")
+                .build())
+            .match(MethodMatcher.builder().named("sendKeyDowns")
+                .arg(0, "java.awt.AWTEvent")
+                .returnType("void")
+                .build())
+            .build();
     }
 }
